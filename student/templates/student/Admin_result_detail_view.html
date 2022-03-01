@@ -26,6 +26,12 @@ tr:nth-child(even){
 <div class="container card-header text-center text-white bg-primary">
 <h1>Top Scores</h1>
 </div>
+<div class="d-flex bd-highlight container card-header">
+  <div class="p-2 flex-fill bd-highlight"><a href="{% url 'quiz:take-exam' %}">Take Exam Again</a></div>
+  <div class="p-2 flex-fill bd-highlight"> <a class="nav-link" href="{% url 'quiz:profilelistview' %}">My Profile</a></div>
+
+</div>
+
   <div class="table-responsive container text-center card-body">
     <table class="table" id="">
         <thead>
