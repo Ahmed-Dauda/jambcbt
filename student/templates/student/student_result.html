@@ -1,0 +1,17 @@
+{% extends 'quiz/dashboard/profile-dashboard.html' %}
+
+{% block title %} student result page {% endblock %}
+
+{% block body %}
+<br><br>
+    {% for r in object_list %}
+    <div class="container card text-center">
+    <div class="card-header"><a href="{% url 'student:userprofileview' r.id %}">{{r}}</a></div>
+    </div>
+   
+   {% empty %}
+   <p>no post yet</p>
+    {% endfor %}
+    
+{% endblock %}
+                       
