@@ -45,7 +45,7 @@ def home(request):
     return render(request, 'quiz/home.html')
 
 
-class DashboardListView(ListView):
+class DashboardListView(ListView, LoginRequiredMixin):
     model = Course
     template_name = 'quiz/dashboard/dashboard.html'
     
@@ -62,7 +62,7 @@ class DashboardListView(ListView):
 #     }
 #     return render(request, 'quiz/dashboard/profile.html', context)
 
-class ProfileListView(ListView):
+class ProfileListView(ListView, LoginRequiredMixin):
 
     model = Course
     template_name = 'quiz/dashboard/profile.html'
@@ -159,7 +159,7 @@ def Admin_detail_view(request,pk):
     }
     return render(request,'sms/Admin_result_detail_view.html', context)
 
-
+@login_required
 def take_exams_view(request):
     course = QMODEL.Course.objects.all()
     context = {
@@ -167,6 +167,7 @@ def take_exams_view(request):
     }
     return render(request, 'quiz/take_exams.html', context=context)
 
+@login_required
 def start_exams_view(request, pk):
 
     course = QMODEL.Course.objects.get(id = pk)
@@ -215,6 +216,7 @@ def calculate_marks_view(request):
     else:
         return HttpResponseRedirect('take-exam')
 
+@login_required
 def view_result_view(request):
     courses=QMODEL.Course.objects.all()
     return render(request,'quiz/view_result.html',{'courses':courses})
@@ -222,6 +224,7 @@ def view_result_view(request):
 
 from django.db.models import Count
 
+@login_required
 def check_marks_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
     student = Student.objects.all()
