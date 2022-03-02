@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>exam Instructions</title>
+
+</head>
+<body>
+    <br><br>
+    <div style="background-color: #f4623a;" class="container card-header text-white text-center">
+        <h1>Examination Instructions</h1>
+    </div>
+    
+    <div class="container card-body">
+        <div>
+            <p>In this examination, you will be examined on the subject selected by you and you are expected to follow the instructions below:
+                Examination Instructions.
+                1. In this exam, you will be given multiple choice questions selected from JAMB official past questions, 10 questions will be displayed on the screen based on the subjects you selected and you are expected to select only one option as your answer to each question.
+                2. Once you have answered a questions on the first page, click on "Next" or press the right arrow key on your keyboard to move to the next 10 questions in that order. You can also go back to a previous question by clicking on "Previous" or pressing the left arrow key on your keyboard. Once you reach and answer the last question, click on "Submit Exam" to see your score.
+                3. You have unlimited numbers of trials. 
+                4. If you do not have an answer to a question, you can skip it by clicking on the "Next" button or pressing the right arrow key of your keyboard. You can re-attempt the skipped question when you have attempted others.
+                5. After this exam, your score is saved immediately and ready for view. You can as while see your result in your   My Profile under the tab "Check my Result". You can beat this best score by performing better in another exam of the same type and subject combination.
+                If you have read and understood the instructions and information above, you can click "Proceed to start" 
+                Good luck!
+                
+                </p>
+        </div>
+       
+    </div>
+
+    <div  class="container text-center">
+    <button  class="btn btn-primary text-white "><a class="text-white text-center" href="{% url 'quiz:take-exam' %}">Start Exam</a></button>
+</div>
+</body>
+</html>

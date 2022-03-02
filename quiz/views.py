@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request, 'quiz/index.html')
 
-class StudentEnrollment(ListView):
+class StudentEnrollment(ListView, LoginRequiredMixin):
     
     template_name = 'quiz/dashboard/tables.html'
     def get_queryset(self):
@@ -236,3 +236,10 @@ def check_marks_view(request,pk):
         
     }
     return render(request,'quiz/check_marks.html', context)
+
+class InstructionListView(ListView, LoginRequiredMixin):
+    model = Course
+    template_name = 'quiz/intruction.html'
+    
+    def get_queryset(self):
+        return Course.objects.all()

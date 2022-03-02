@@ -1,0 +1,18 @@
+{% extends 'quiz/dashboard/profile-dashboard.html' %}
+
+{% block title %} profile page {% endblock %}
+
+{% block body %}
+<div class="container card-body">
+    <h4 class="card-header text-center text-white" style="background-color: #f4623a;">Generate Top's Scores in pdf</h4><br>
+
+    {% for course in object_list %}
+<div class="card">
+    <a class="card-header text-center" href="{% url 'student:topscores_pdf_view' course.id %}">Generate pdf Top Scores of {{course}}</a>
+</div>
+    {% empty %}
+<h4>No exam Available for this course yet.</h4>
+    {% endfor %}
+</div>
+
+{% endblock %}

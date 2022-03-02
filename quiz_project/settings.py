@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'student',
     'cloudinary',
     'import_export',
+    'xhtml2pdf',
 ]
 
 # django-import-export settings
@@ -128,7 +129,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = 'quiz:take-exam'
+LOGIN_REDIRECT_URL = 'quiz:instructionlistview'
 # LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 

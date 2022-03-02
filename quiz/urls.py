@@ -4,7 +4,8 @@ from . import views
 from quiz.views import (
     DashboardListView, 
     ProfileListView,
-    StudentEnrollment
+    StudentEnrollment,
+    InstructionListView
 )
 app_name = 'quiz'
 
@@ -16,6 +17,8 @@ urlpatterns = [
     path('studentenrollment', StudentEnrollment.as_view(), name = 'studentenrollment'),
     path('dashboardlistview', DashboardListView.as_view(), name = 'dashboardlistview'),
     path('profilelistview', ProfileListView.as_view(), name = 'profilelistview'),
+    path('instructionlistview', InstructionListView.as_view(), name = 'instructionlistview'),
+    
 
     path('take-exam', views.take_exams_view,name='take-exam'),
     path('start-exam/<pk>/', views.start_exams_view,name='start-exam'),

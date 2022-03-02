@@ -11,7 +11,6 @@
 </head>
 
 <style>
-
 tr, td, th{
   border: 1px solid black;
   padding: 0 4px 0 4px;
@@ -23,7 +22,7 @@ tr:nth-child(even){
 </style>
 <body>
 
-<div class="container card-header text-center text-white bg-primary">
+<div class="container card-header text-center text-white " style="background-color: #f4623a;">
 <h1>Top Scores</h1>
 </div>
 <div class="d-flex bd-highlight container card-header">
@@ -58,6 +57,7 @@ tr:nth-child(even){
           <td> {{t.marks}} / {{course.total_marks}}</td>
           <td>Attemp {{ forloop.counter }}</td>
           <td> {{t.date}}</td>
+          
          
         </tr>
         {% empty %}
