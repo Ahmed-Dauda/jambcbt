@@ -16,7 +16,7 @@ class BookResource(resources.ModelResource):
         column_name='Subject Title',
         attribute='course',
         widget=ForeignKeyWidget(Course,'course_name') )
-    from_encoding = 'utf-8-sig'
+    from_encoding = 'utf-8'
     class Meta:
         model = Question
         # exclude = ('id','course' )
@@ -24,7 +24,7 @@ class BookResource(resources.ModelResource):
 
 class BookAdmin(ImportExportModelAdmin):
     resource_class = BookResource
-    from_encoding = 'utf-8-sig'
+    from_encoding = 'utf-8'
     class Meta:
         model = Question
         # exclude = ('id','course' )

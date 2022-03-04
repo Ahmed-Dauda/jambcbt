@@ -8,7 +8,7 @@ from import_export.widgets import ForeignKeyWidget
 
 admin.site.register(Student)
 class BookResource(resources.ModelResource):
-    from_encoding = 'utf-8-sig'
+    from_encoding = 'utf-8'
     class Meta:
         model = Course
 
