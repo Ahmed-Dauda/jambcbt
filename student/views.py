@@ -110,9 +110,7 @@ def userprofileview(request,pk):
               
     context = {
         'results':results,
-        'course':course,
-       
-       
+        'course':course,  
     }
     return render(request,'student/profile.html', context)
 
