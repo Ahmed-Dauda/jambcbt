@@ -18,12 +18,12 @@ class Question(models.Model):
     marks=models.PositiveIntegerField()
     question=models.TextField(blank=True, null = True)
     img_quiz = CloudinaryField('image', blank=True, null= True)
-    option1=models.CharField(max_length=200, blank=True, null = True)
-    option2=models.CharField(max_length=200, blank=True, null = True)
-    option3=models.CharField(max_length=200, blank=True, null = True)
-    option4=models.CharField(max_length=200, blank=True, null = True)
+    option1=models.CharField(max_length=500, blank=True, null = True)
+    option2=models.CharField(max_length=500, blank=True, null = True)
+    option3=models.CharField(max_length=500, blank=True, null = True)
+    option4=models.CharField(max_length=500, blank=True, null = True)
     cat=(('Option1','Option1'),('Option2','Option2'),('Option3','Option3'),('Option4','Option4'))
-    answer=models.CharField(max_length=200,choices=cat)
+    answer=models.CharField(max_length=500,choices=cat)
     id = models.AutoField(primary_key=True)
 
     def __str__(self):
