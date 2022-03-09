@@ -5,28 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>start exams view</title>
-    <script>
-    
-      MathJax = {
-        options: {
-          skipHtmlTags: [            //  HTML tags that won't be searched for math
-        'script', 'noscript', 'style', 'textarea',
-        'code', 'annotation', 'annotation-xml'
-    ],
-          includeHtmlTags: {         //  HTML tags that can appear within math
-              br: '\n', wbr: '', '#comment': ''
-          },
-          ignoreHtmlClass: 'tex2jax_ignore',    //  class that marks tags not to search
-          processHtmlClass: 'tex2jax_process',  //  class that marks tags that should be searched
-          compileError: function (doc, math, err) {doc.compileError(math, err)},
-          typesetError: function (doc, math, err) {doc.typesetError(math, err)},
-          renderActions: {...}
-        }
-      };
-    
-    </script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+ <!-- mathjax settings -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+ 
+</script>
     
        <!-- sweetify -->
        <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
@@ -53,13 +38,17 @@
        
 
       /* } */
-    
+/* .math-class{
+  text-align: left !important;
+  display: inline !important;
+} */input[type=radio]{
+  transform:scale(1.3);
+ 
+}
       </style>
       
 </head>
 <body>
-  
-
 
   <br>
   <div class="container">
@@ -79,36 +68,37 @@
 <div  class="text-center" ><img src="{{q.img_quiz.url}}" width="100%" height="300px" alt=""> </div><br>
 {% endif %}
 
-<p style="white-space: pre-wrap; font-size: 20px;font-family: sans-serif;" >{{ forloop.counter }}. {{q.question}}</p>
+<div class="card-text">
+<p class="d-flex" style="overflow-x: auto; white-space: pre-wrap; font-size: 20px;font-family: sans-serif;" >
+{{ forloop.counter }}. {{ q.question }}</p>
 {% if q.marks %} 
 <h6 style="text-align: right;">[marks {{q.marks}}]</h6>
-<br>
 {% endif %}
-
+</div>
 {% if q.option1 %}
-  <div class="card-header">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1">
+  <div  class="card-header shadow-lg mb-1 bg-white rounded">
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1">
  <label for="option1"> {{q.option1}}</label><br>
 </div>
 {% endif %}
 
   {% if q.option2 %}
-  <div class="card-header">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2">
+  <div class="card-header shadow-lg mb-1 bg-white rounded">
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2">
   <label for="option2">{{q.option2}}</label><br>
 
 </div>
 {% endif %}
 
 {% if q.option3 %}
-<div class="card-header">
+<div class="card-header shadow-lg mb-1 bg-white rounded">
   <input  type="radio" name="{{forloop.counter}}" id="{{q.option3}}"  value="Option3">
   <label for="option3">{{q.option3}}</label><br> 
 </div>
 {% endif %}
 
 {% if q.option4 %}
-<div class="card-header">
+<div class="card-header shadow-lg mb-1 bg-white rounded">
   <input  type="radio" name="{{forloop.counter}}" id="{{q.option4}}"  value="Option4">
   <label  for="option4">{{q.option4}}</label><br>
 </div>
@@ -177,6 +167,10 @@
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+</script>
+
+<script>
 
 </script>
 </body>

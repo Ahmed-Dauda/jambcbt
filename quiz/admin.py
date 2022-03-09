@@ -1,3 +1,4 @@
+from dataclasses import Field
 from django.contrib import admin
 from quiz.models import Course, Question, Result
 # Register your models here.
@@ -12,22 +13,26 @@ from import_export.widgets import ForeignKeyWidget
 
 
 class BookResource(resources.ModelResource):
+    
     course_name = fields.Field(
-        column_name='Subject Title',
+        column_name='course test',
         attribute='course',
         widget=ForeignKeyWidget(Course,'course_name') )
-    # from_encoding = 'latin-1'
+    
     class Meta:
         model = Question
-        # exclude = ('id','course' )
+        # exclude = ('id', )
+       
        
 
 class BookAdmin(ImportExportModelAdmin):
     resource_class = BookResource
-    # from_encoding = 'latin-1'
+
     class Meta:
         model = Question
-        # exclude = ('id','course' )
+        # import_id_fields = ('id',)
+        
+        # exclude = ('id',)
 
 admin.site.register(Question, BookAdmin)
 
