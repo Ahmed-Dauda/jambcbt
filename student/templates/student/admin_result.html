@@ -5,7 +5,7 @@
 {% block body %}
 <br><br>
     {% for r in object_list %}
-    <div class="container card text-center">
+    <div class="container card text-center shadow-lg mb-1 bg-white rounded">
     <div class="card-header"><a href="{% url 'student:admin_result_detail_view' r.id %}">{{r}}</a></div>
     </div>
    

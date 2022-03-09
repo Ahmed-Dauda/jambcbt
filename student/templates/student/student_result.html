@@ -5,9 +5,10 @@
 {% block body %}
 <br><br>
     {% for r in object_list %}
-    <div class="container card text-center">
-    <div class="card-header"><a href="{% url 'student:userprofileview' r.id %}">{{r}}</a></div>
+    <div style="border: 2px dotted green;" class="container text-center shadow-lg mb-1 bg-white rounded">
+    <div class="card-body"><a href="{% url 'student:userprofileview' r.id %}">{{r}}</a></div>
     </div>
+    <br>
    
    {% empty %}
    <p>no post yet</p>

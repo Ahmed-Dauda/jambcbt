@@ -89,6 +89,15 @@ class Student_result(LoginRequiredMixin, ListView):
    
     def get_queryset(self):
         return QMODEL.Course.objects.all()
+    
+    def get_context_data(self, **kwargs):
+
+        context= super().get_context_data(**kwargs)
+        context['course_count'] =QMODEL.Course.objects.all().count()
+        context['question_count'] =QMODEL.Question.objects.all().count()
+        context['result_count'] =QMODEL.Result.objects.all().count()
+        context['student_count'] = Student.objects.all().count()
+        return context
 
 @login_required
 def userprofileview(request,pk):

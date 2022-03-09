@@ -62,7 +62,7 @@ class DashboardListView(ListView, LoginRequiredMixin):
 #     }
 #     return render(request, 'quiz/dashboard/profile.html', context)
 
-class ProfileListView(ListView, LoginRequiredMixin):
+class ProfileListView(LoginRequiredMixin,ListView):
 
     model = Course
     template_name = 'quiz/dashboard/profile.html'
@@ -72,12 +72,14 @@ class ProfileListView(ListView, LoginRequiredMixin):
         
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
-
         context['course_count'] =QMODEL.Course.objects.all().count()
         context['question_count'] =QMODEL.Question.objects.all().count()
         context['result_count'] =QMODEL.Result.objects.all().count()
         context['student_count'] = Student.objects.all().count()
-        context['student'] = Student.objects.get(user_id=self.request.user.id)
+        if Student.objects.get(user_id=self.request.user.id):
+            context['student'] = Student.objects.get(user_id=self.request.user.id)
+        else:
+            HttpResponseRedirect('login') 
         return context
 
 # quiz app views
