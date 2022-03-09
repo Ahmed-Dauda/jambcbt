@@ -17,8 +17,8 @@
     <p>Good luck!</p>
     </div>
     {% for course in courses %}
-<div class="card">
-    <a class="card-header text-center" href="{% url 'quiz:start-exam' course.id %}">{{course}}</a>
+<div class="text-center card-body shadow-lg mb-1 bg-white rounded">
+   <div><a class=" text-center" href="{% url 'quiz:start-exam' course.id %}">Take Quiz {{course}}</a></div>
 </div>
     {% empty %}
 <h4>No exam Available for this course yet.</h4>
