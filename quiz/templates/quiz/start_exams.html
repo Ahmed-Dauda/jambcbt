@@ -154,8 +154,8 @@ function checkSecond(sec) {
 <div style="font-size: 25px;" class="pagination">
     <span class="step-links" style="float: right;">
         {% if page_obj.has_previous %}
-           <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}"></a>
+           <a href="?page=1"><button class="btn btn-primary" type="button"> &laquo; first</button></a></button>
+            <a href="?page={{ page_obj.previous_page_number }}"><button type="button" class="btn btn-primary">previous</button></a>
         {% endif %}
 
         <span class="current">
@@ -163,14 +163,14 @@ function checkSecond(sec) {
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_
-            <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+            <a href="?page={{ page_obj.next_page_number }}"><button type="button" class="btn btn-primary">next</button></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"><button type="button" class="btn btn-primary">last &raquo;</button></a>
         {% endif %}
     </span>
 </div>
 </div>
 <!-- end of pagination -->
-</div>
+	</div>
 
 </form>
   </div>
