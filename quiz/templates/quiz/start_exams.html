@@ -54,7 +54,7 @@
 <script type="text/javascript">
 window.onload = function begin(){
 document.getElementById('timer').innerHTML =
-  30 + ":" + 00;
+  5 + ":" + 00;
 startTimer();
 }
 
@@ -91,7 +91,7 @@ function checkSecond(sec) {
   <br>
   <div class="container">
 
-<form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data"  method="POST">
+<form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data" id ='quiz' method="POST">
   {% csrf_token %}
   <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
     <h1>{{course}} Quiz</h1><br>
