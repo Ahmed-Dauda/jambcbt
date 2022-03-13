@@ -50,7 +50,48 @@
       
 </head>
 <body>
-    
+  his approach uses localStorage and does not Pause or Reset the timer on page refresh.
+
+<p id="demo"></p>
+
+<script>
+var time = 30; // This is the time allowed
+var saved_countdown = localStorage.getItem('saved_countdown');
+
+if(saved_countdown == null) {
+    // Set the time we're counting down to using the time allowed
+    var new_countdown = new Date().getTime() + (time + 2) * 1000;
+
+    time = new_countdown;
+    localStorage.setItem('saved_countdown', new_countdown);
+} else {
+    time = saved_countdown;
+}
+
+// Update the count down every 1 second
+var x = setInterval(() => {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the allowed time
+    var distance = time - now;
+
+    // Time counter
+    var counter = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = counter + " s";
+        
+    // If the count down is over, write some text 
+    if (counter <= 0) {
+        clearInterval(x);
+        localStorage.removeItem('saved_countdown');
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}, 1000);
+</script>  
+	
 <script type="text/javascript">
   
 window.onload = function begin(){
