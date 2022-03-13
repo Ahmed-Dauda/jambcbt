@@ -87,6 +87,8 @@ var x = setInterval(() => {
     if (counter <= 0) {
         clearInterval(x);
         localStorage.removeItem('saved_countdown');
+	document.getElementById('quiz').submit();
+
         document.getElementById("demo").innerHTML = "EXPIRED";
     }
 }, 1000);
