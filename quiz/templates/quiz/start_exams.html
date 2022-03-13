@@ -45,7 +45,8 @@
   transform:scale(1.3);
  
 }
-      </style>
+
+</style>
       
 </head>
 <body>
@@ -148,14 +149,18 @@ function checkSecond(sec) {
 
   <input onclick="disp()" class="btn btn-primary" type="submit" value="Submit">
    
+
+</form>
+<br>
 <!-- pagination codes start -->
 
 {% if page_obj.has_other_pages %}
-<nav aria-label="Page navigation example">
+<div class="container">
+<nav class="d-flex" aria-label="Page navigation example">
 
-  <ul class="pagination justify-content-center">
+  <ul class="pagination pagination-sm flex-wrap justify-content-center">
     {% if page_obj.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+      <li class=" page-item"><a class="page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -168,45 +173,20 @@ function checkSecond(sec) {
     {% endfor %}
 
     {% if page_obj.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"> next &raquo;</a></li>
+      <li class="page-item"><a class="page-link badge bg-primary rounded-pill" href="?page={{ page_obj.next_page_number }}"> next &raquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>last &raquo; </span></li>
     {% endif %}
   </ul>
 </nav>
-{% endif %}
-
-<!-- end of pagination -->
-<<<<<<< HEAD
 </div>
-<!-- new pagination -->
-
-=======
-	</div>
-{% if page_obj.has_other_pages %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in page_obj.paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
 {% endif %}
-	
->>>>>>> 33bcaec1bb7638325aae229cbc1395139e458731
-</form>
+<!-- end of pagination -->
+<script>
+  function changeColor(){
+    
+  }
+</script>
   </div>
 
       <script> 
