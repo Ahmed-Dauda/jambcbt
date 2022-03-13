@@ -49,11 +49,49 @@
       
 </head>
 <body>
+    
+<script type="text/javascript">
+  
+window.onload = function begin(){
+document.getElementById('timer').innerHTML =
+  5 + ":" + 00;
+startTimer();
+}
 
+function startTimer() {
+  var presentTime = document.getElementById('timer').innerHTML;
+  var timeArray = presentTime.split(/[:]+/);
+  var m = timeArray[0];
+  var s = checkSecond((timeArray[1] - 1));
+  if(s==59){m=m-1}
+  if(m<0){
+    document.getElementById('quiz').submit();
+  }
+  document.getElementById('timer').innerHTML =
+    m + ":" + s;
+  setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+</script>
+    
+   <div class='float-right sticky-top'>
+	<div class="row justify-content-left">
+		<div class="col-mx-auto">
+			<div class="alert alert-success" role="alert"><center>Time left : <span id="timer"></span></center></div>
+		</div>
+	</div>
+</div>
+ 
+    
   <br>
   <div class="container">
 
-<form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data"  method="POST">
+<form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data" id ='quiz' method="POST">
   {% csrf_token %}
   <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
     <h1>{{course}} Quiz</h1><br>
@@ -70,7 +108,7 @@
 
 <div style="border: 2px dotted green;" class="container shadow-lg mb-1 bg-white rounded">
 <p class="d-flex" style="overflow-x: auto; white-space: pre-wrap; font-size: 20px;font-family: sans-serif;" >
-({{ forloop.counter }}). {{ q.question }}</p>
+{{ q.question }}</p>
 {% if q.marks %} 
 <h6 style="text-align: right;">[marks {{q.marks}}]</h6>
 {% endif %}
@@ -111,28 +149,36 @@
   <input onclick="disp()" class="btn btn-primary" type="submit" value="Submit">
    
 <!-- pagination codes start -->
-<div class="container card-body">
-  <br>   
-<div style="font-size: 25px;" class="pagination">
-    <span class="step-links" style="float: right;">
-        {% if page_obj.has_previous %}
-           <a href="?page=1"><button class="btn btn-primary" type="button"> &laquo; first</button></a></button>
-            <a href="?page={{ page_obj.previous_page_number }}"><button type="button" class="btn btn-primary">previous</button></a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation example">
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}"><button type="button" class="btn btn-primary">next</button></a>
-            <a href="?page={{ page_obj.paginator.num_pages }}"><button type="button" class="btn btn-primary">last &raquo;</button></a>
-        {% endif %}
-    </span>
-</div>
-</div>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="page-item active" aria-current="page"><span><a class="page-link" href="">{{ i }}</a></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"> next &raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><span>last &raquo; </span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
 <!-- end of pagination -->
 </div>
+<!-- new pagination -->
 
 </form>
   </div>
