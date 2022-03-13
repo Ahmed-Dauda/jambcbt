@@ -177,7 +177,7 @@ def start_exams_view(request, pk):
     # questions_m = QMODEL.Question.objects.filter(course__course_name = 'Mathematics').order_by('?')
     questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')[0:3]
 
-    q_count = QMODEL.Question.objects.all().filter(course = course).count()[0:50]   
+    q_count = QMODEL.Question.objects.all().filter(course = course).count()  
     paginator = Paginator(questions, 1) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
