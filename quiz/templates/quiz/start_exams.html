@@ -50,38 +50,49 @@
       
 </head>
 <body>
-	<div class="box-body">
-        <h2><p style="float: right" id="countdown"></p></h2>
-    </div>
+<div class="box-body">
+  <h2><p style="float: right" id="countdown"></p></h2>
+</div>
+	
+$time_limit = "2016-08-14 00:10:00"
+var d = new Date($time_limit);
+var hours = d.getHours(); //00 hours
+var minutes = d.getMinutes(); //10 minutes
+var seconds = 60 * minutes; // 600seconds
 
-<script>
-  $time_limit = $("#time_limit").val();      //2016-08-14 00:10:00
-    var d = new Date($time_limit);
-    var hours = d.getHours();                  //00 hours
-    var minutes = d.getMinutes();              //10 minutes
-    var seconds = 60 * minutes;                // 600seconds
+if (typeof(Storage) !== "undefined") {
+  if (localStorage.seconds) {
+    seconds = localStorage.seconds;
+  }
+}
 
-    function secondPassed() {
-        var minutes = Math.round((seconds - 30) / 60);
-        console.log(minutes);
-        var hours = Math.round((minutes) / 60);
-        var remainingSeconds = seconds % 60;
-        if (remainingSeconds < 10) {
-            remainingSeconds = "0" + remainingSeconds;
-        }
-        document.getElementById('countdown').innerHTML = hours + ":" + minutes + ":" + remainingSeconds;
-        if (seconds == 0) {
-            clearInterval(myVar);
-            document.getElementById('countdown').innerHTML = "Time Out";
-        } else {
-            seconds--;
-            console.log(seconds);
-        }
+function secondPassed() {
+  var minutes = Math.round((seconds - 30) / 60);
+  console.log(minutes);
+  var hours = Math.round((minutes) / 60);
+  var remainingSeconds = seconds % 60;
+  if (remainingSeconds < 10) {
+    remainingSeconds = "0" + remainingSeconds;
+  }
+  if (typeof(Storage) !== "undefined") {
+    localStorage.setItem("seconds", seconds);
+  }
+  document.getElementById('countdown').innerHTML = hours + ":" + minutes + ":" + remainingSeconds;
 
+  if (seconds == 0) {
+    clearInterval(myVar);
+    document.getElementById('countdown').innerHTML = "Time Out";
+    if (typeof(Storage) !== "undefined") {
+      localStorage.removeItem("seconds");
     }
-    var myVar = setInterval(secondPassed, 1000);
+  } else {
+    seconds--;
+    console.log(seconds);
+  }
 
-</script>
+}
+var myVar = setInterval(secondPassed, 1000);
+	
 	
 	
   his approach uses localStorage and does not Pause or Reset the timer on page refresh.
