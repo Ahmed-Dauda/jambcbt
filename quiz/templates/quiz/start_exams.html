@@ -50,8 +50,63 @@
       
 </head>
 <body>
-    
-<script type="text/javascript">
+
+  <!-- quiz timer  -->
+  <div class='float-right sticky-top'>
+    <div class="row justify-content-left">
+      <div class="col-mx-auto">
+        <div class="alert alert-success" role="alert"><center>Time left : <span id="countdown"></span></center></div>
+      </div>
+    </div>
+  </div>
+ <!--end quiz timer  -->
+
+<!-- 	
+  his approach uses localStorage and does not Pause or Reset the timer on page refresh.
+
+<p id="demo"></p>
+
+<script>
+var time = 30; // This is the time allowed
+var saved_countdown = localStorage.getItem('saved_countdown');
+
+if(saved_countdown == null) {
+    // Set the time we're counting down to using the time allowed
+    var new_countdown = new Date().getTime() + (time + 2) * 1000;
+
+    time = new_countdown;
+    localStorage.setItem('saved_countdown', new_countdown);
+} else {
+    time = saved_countdown;
+}
+
+// Update the count down every 1 second
+var x = setInterval(() => {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the allowed time
+    var distance = time - now;
+
+    // Time counter
+    var counter = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = counter + " s";
+        
+    // If the count down is over, write some text 
+    if (counter <= 0) {
+        clearInterval(x);
+        localStorage.removeItem('saved_countdown');
+	      document.getElementById('quiz').submit();
+
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}, 1000);
+</script>   -->
+	
+<!-- <script type="text/javascript">
   
 window.onload = function begin(){
 document.getElementById('timer').innerHTML =
@@ -78,16 +133,9 @@ function checkSecond(sec) {
   if (sec < 0) {sec = "59"};
   return sec;
 }
-</script>
+</script> -->
     
-   <div class='float-right sticky-top'>
-	<div class="row justify-content-left">
-		<div class="col-mx-auto">
-			<div class="alert alert-success" role="alert"><center>Time left : <span id="timer"></span></center></div>
-		</div>
-	</div>
-</div>
- 
+
     
   <br>
   <div class="container">
@@ -147,7 +195,7 @@ function checkSecond(sec) {
 <h1 class="card text-center text-danger">No Exam Available Yet. CHECK LATER</h1>
   {% endfor %}
 
-  <input onclick="disp()" class="btn btn-primary" type="submit" value="Submit">
+  <input onclick="reset()" class="btn btn-primary" type="submit" value="Submit">
    
 
 </form>
@@ -182,15 +230,14 @@ function checkSecond(sec) {
 </div>
 {% endif %}
 <!-- end of pagination -->
+<!-- <p id="dj">{{min}}</p> -->
 <script>
   function changeColor(){
     
   }
 </script>
   </div>
-
       <script> 
-
           function saveAns(){  
       
               var ele = document.getElementsByTagName('input'); 
@@ -222,9 +269,57 @@ function checkSecond(sec) {
 
 </script>
 
-<script>
+<!-- quiz timer start-->
 
-</script>
+<script>
+ 
+  $time_limit = "2016-08-14 00:01:00"
+  var d = new Date($time_limit);
+  var hours = d.getHours(); //00 hours
+  var minutes = d.getMinutes(); //10 minutes
+  var seconds = 60 * minutes; // 600seconds
+  
+  if (typeof(Storage) !== "undefined") {
+    if (localStorage.seconds) {
+      seconds = localStorage.seconds;
+    }
+  }
+  
+  function secondPassed() {
+    var minutes = Math.round((seconds - 30) / 60);
+    console.log(minutes);
+    var hours = Math.round((minutes) / 60);
+    var remainingSeconds = seconds % 60;
+    if (remainingSeconds < 10) {
+      remainingSeconds = "0" + remainingSeconds;
+    }
+    if (typeof(Storage) !== "undefined") {
+      localStorage.setItem("seconds", seconds);
+    }
+    document.getElementById('countdown').innerHTML = hours + ":" + minutes + ":" + remainingSeconds;
+  
+    if (seconds == 0) {
+      clearInterval(myVar);
+      document.getElementById('countdown').innerHTML = "Time Out";
+      document.getElementById('quiz').submit();
+      if (typeof(Storage) !== "undefined") {
+        localStorage.removeItem("seconds");
+      }
+    } else {
+      seconds--;
+      console.log(seconds);
+    }
+  
+  }
+  var myVar = setInterval(secondPassed, 1000);
+  </script>	
+    <!-- end of quiz timer -->
+  <script>
+    function reset(){
+      r = localStorage.removeItem("seconds");
+      return r 
+    }
+  </script>
 </body>
 </html>
 

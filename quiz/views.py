@@ -4,7 +4,7 @@ from django.shortcuts import render, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from student.models import Student
 from quiz import models as QMODEL
-from quiz.models import Result, Course
+from quiz.models import Result, Course, Timer
 from django.urls.base import reverse_lazy
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
@@ -173,8 +173,11 @@ def take_exams_view(request):
 def start_exams_view(request, pk):
 
     course = QMODEL.Course.objects.get(id = pk)
+    min = Timer.objects.get(id  =1)
     # questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')
     # questions_m = QMODEL.Question.objects.filter(course__course_name = 'Mathematics').order_by('?')
+    print(min)
+    
     questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')[0:50]
 
     q_count = QMODEL.Question.objects.all().filter(course = course).count()  
@@ -186,7 +189,8 @@ def start_exams_view(request, pk):
         'course':course,
         'questions':questions,
         'q_count':q_count,
-        'page_obj':page_obj
+        'page_obj':page_obj,
+        'min':min
     }
     if request.method == 'POST':
         pass

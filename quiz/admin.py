@@ -1,11 +1,12 @@
 from dataclasses import Field
 from django.contrib import admin
-from quiz.models import Course, Question, Result
+from quiz.models import Course, Question, Result, Timer
 # Register your models here.
 
 # admin.site.register(Course)
 # admin.site.register(Question)
 admin.site.register(Result)
+admin.site.register(Timer)
 
 from import_export.admin import ImportExportModelAdmin
 from import_export import fields,resources
