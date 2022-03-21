@@ -163,9 +163,21 @@ def Admin_detail_view(request,pk):
 
 @login_required
 def take_exams_view(request):
-    course = QMODEL.Course.objects.all()
+    total_scores = 0
+   
+    course = QMODEL.Course.objects.filter(user = request.user)
+    c = QMODEL.Course.objects.all()
+    results =  Result.objects.all().order_by('-date')[:4]
+    for r in results:
+        total_scores = total_scores + r.marks
+        
+    print(total_scores)
+       
+    # result =  Result.objects.filter(student__user = request.user).order_by('-date')
     context = {
-        'courses':course
+        'courses':course,
+        'results':results,
+        'total_scores':total_scores
     }
     return render(request, 'quiz/take_exams.html', context=context)
 
@@ -178,10 +190,10 @@ def start_exams_view(request, pk):
     # questions_m = QMODEL.Question.objects.filter(course__course_name = 'Mathematics').order_by('?')
     print(min)
     
-    questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')[0:50]
+    questions = QMODEL.Question.objects.all().filter(course = course)[0:50]
 
     q_count = QMODEL.Question.objects.all().filter(course = course).count()  
-    paginator = Paginator(questions, 1) # Show 25 contacts per page.
+    paginator = Paginator(questions, 2) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -219,13 +231,13 @@ def calculate_marks_view(request):
         result.student=student
         result.save()
 
-        return HttpResponseRedirect('view_result')
+        return HttpResponseRedirect('take-exam')
     else:
         return HttpResponseRedirect('take-exam')
 
 @login_required
 def view_result_view(request):
-    courses=QMODEL.Course.objects.all()
+    courses=QMODEL.Course.objects.filter(user = request.user)
     return render(request,'quiz/view_result.html',{'courses':courses})
 
 

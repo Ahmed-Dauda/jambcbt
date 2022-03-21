@@ -2,8 +2,11 @@ from django.db import models
 from student.models import Student
 # from users.models import Profile
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
 
 class Course(models.Model):
+
+   user=models.ForeignKey(User,on_delete=models.CASCADE, blank=True,  null=True)
    course_name = models.CharField(max_length=50, unique= True)
    question_number = models.PositiveIntegerField()
    total_marks = models.PositiveIntegerField()
@@ -45,7 +48,9 @@ class Result(models.Model):
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
     id = models.AutoField(primary_key=True)
+    
     def __str__(self):
-        return f"{self.student}"
+
+        return f"{self.student} - {self.marks}"
 
 

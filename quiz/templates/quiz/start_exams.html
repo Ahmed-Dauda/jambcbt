@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>start exams view</title>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
  <!-- mathjax settings -->
  <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
@@ -249,11 +251,31 @@ function checkSecond(sec) {
 <h1 class="card text-center text-danger">No Exam Available Yet. CHECK LATER</h1>
   {% endfor %}
 
-  <input onclick="reset()" class="btn btn-primary" type="submit" value="Submit">
+  <input  class="btn btn-primary" type="submit" value="Next Subject">
    
-
 </form>
 <br>
+<script> 
+  function saveAns(){  
+
+      var ele = document.getElementsByTagName('input'); 
+      for(i = 0; i < ele.length; i++) { 
+          if(ele[i].type="radio") { 
+              if(ele[i].checked){        
+                setCookie(ele[i].name,ele[i].value,3)
+              }
+          } 
+      } 
+        
+  }
+  
+  function setCookie(cname, cvalue, exdays) {
+var d = new Date();
+d.setTime(d.getTime() + (exdays*24*60*60*1000));
+var expires = "expires="+ d.toUTCString();
+document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+</script>
 <!-- pagination codes start -->
 
 {% if page_obj.has_other_pages %}
@@ -285,39 +307,20 @@ function checkSecond(sec) {
 {% endif %}
 <!-- end of pagination -->
 <!-- <p id="dj">{{min}}</p> -->
-<script>
+<!-- <script>
   function changeColor(){
     
   }
-</script>
+</script> -->
   </div>
-      <script> 
-          function saveAns(){  
-      
-              var ele = document.getElementsByTagName('input'); 
-              for(i = 0; i < ele.length; i++) { 
-                  if(ele[i].type="radio") { 
-                      if(ele[i].checked){        
-                        setCookie(ele[i].name,ele[i].value,3)
-                      }
-                  } 
-              } 
-                
-          }
-          
-          function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        var expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      }
-    </script>
 
-<script>
+     
+
+<!-- <script>
     function disp(){
     alert('Your Quiz was Successfully Submitted')
     } 
-</script>
+</script> -->
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
@@ -368,15 +371,15 @@ function checkSecond(sec) {
   var myVar = setInterval(secondPassed, 1000);
   </script>	
     <!-- end of quiz timer -->
-  <script>
+  <!-- <script>
     function reset(){
       r = localStorage.removeItem("seconds");
       return r 
     }
-  </script>
+  </script> -->
 </body>
 </html>
-
+<!-- 
  <script> 
     function saveAns(){  
 
@@ -398,6 +401,6 @@ function checkSecond(sec) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-</script> 
+</script>  -->
 
 <br><br><br><br><br><br>
