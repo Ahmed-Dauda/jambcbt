@@ -1,3 +1,12 @@
+# from django.urls import path, re_path
+
+# from quiz.forms import QuestionForm
+
+# from quiz.views import ContactWizard
+
+# urlpatterns = [
+#     path('contact/', ContactWizard.as_view([QuestionForm])),
+# ]
 
 from django.urls import path
 from . import views

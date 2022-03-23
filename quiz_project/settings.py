@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'import_export',
     'xhtml2pdf',
+    'formtools',
 ]
 
 # django-import-export settings

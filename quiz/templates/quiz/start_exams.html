@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>start exams view</title>
+    <!-- ajex -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
  <!-- mathjax settings -->
  <script type="text/x-mathjax-config">
@@ -52,8 +58,24 @@
       
 </head>
 <body>
+ 
+<script>
+  $(function(){
+    // don't cache ajax or content won't be fresh
+    $.ajaxSetup ({
+        cache: false
+    });
+    var ajax_load = "<img src='http://automobiles.honda.com/images/current-offers/small-loading.gif' alt='loading...' />";
 
+    // load() functions
+    var loadUrl = "http://fiddle.jshell.net/deborah/pkmvD/show/";
+    $("#loadbasic").click(function(){
+        $("#result").html(ajax_load).load(loadUrl);
+    });
 
+// end  
+});
+</script>
   <!-- quiz timer  -->
   <div class='float-right sticky-top'>
     <div class="row justify-content-left">
@@ -191,11 +213,9 @@ function checkSecond(sec) {
 }
 </script> -->
     
-
-    
-  <br>
-  <div class="container">
-
+<br>
+<div id="fav_list" class="container">
+ 
 <form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data" id ='quiz' method="POST">
   {% csrf_token %}
   <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
@@ -254,7 +274,9 @@ function checkSecond(sec) {
   <input  class="btn btn-primary" type="submit" value="Next Subject">
    
 </form>
+</div>
 <br>
+
 <script> 
   function saveAns(){  
 
@@ -276,15 +298,17 @@ var expires = "expires="+ d.toUTCString();
 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 </script>
+
+
 <!-- pagination codes start -->
 
 {% if page_obj.has_other_pages %}
-<div class="container">
+<div class="container" id = ''>
 <nav class="d-flex" aria-label="Page navigation example">
 
-  <ul class="pagination pagination-sm flex-wrap justify-content-center">
+  <ul class="pagination  pagination-sm flex-wrap justify-content-center">
     {% if page_obj.has_previous %}
-      <li class=" page-item"><a class="page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+      <li class=" page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -292,7 +316,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
       {% if page_obj.number == i %}
         <li class="page-item active" aria-current="page"><span><a class="page-link" href="">{{ i }}</a></span></li>
       {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link" href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
 
@@ -305,26 +329,11 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 </nav>
 </div>
 {% endif %}
-<!-- end of pagination -->
-<!-- <p id="dj">{{min}}</p> -->
-<!-- <script>
-  function changeColor(){
-    
-  }
-</script> -->
-  </div>
 
-     
-
-<!-- <script>
-    function disp(){
-    alert('Your Quiz was Successfully Submitted')
-    } 
-</script> -->
+</div>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
-</script>
 
 <!-- quiz timer start-->
 
