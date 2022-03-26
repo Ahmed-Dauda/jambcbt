@@ -339,7 +339,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
   <ul class="pagination  pagination-sm flex-wrap justify-content-center">
     {% if page_obj.has_previous %}
-      <li class=" page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+      <li class=" page-item"><a  class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -347,7 +347,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
       {% if page_obj.number == i %}
         <li class="page-item active" aria-current="page"><span><a class="page-link" href="">{{ i }}</a></span></li>
       {% else %}
-        <li class="page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link" href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item"><a class="continue page-link" href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
 
