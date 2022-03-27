@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'import_export',
     'xhtml2pdf',
     'formtools',
+    'django_bootstrap5',
+    
 ]
 
 # django-import-export settings
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'bootstrap_pagination.middleware.PaginationMiddleware',
 ]
 
 ROOT_URLCONF = 'quiz_project.urls'

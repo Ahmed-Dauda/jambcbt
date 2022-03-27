@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+{# Load the tag library #}
+{% load django_bootstrap5 %}
+
+{% bootstrap_css %}
+
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -216,13 +224,13 @@ function checkSecond(sec) {
 <br>
 <div id="fav_list" class="container">
  
-<form action="/calculate_marks" onsubmit="return saveAns()" enctype="multipart/form-data" id ='quiz' method="POST">
+<form action="/calculate_marks" onsubmit="return  saveAns()" enctype="multipart/form-data" id ='quiz' method="POST">
   {% csrf_token %}
   <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
     <h1>{{course}} Quiz</h1><br>
     <h4>Number of Questions in the Quiz: {{q_count}}</h4>
     <hr>
-    <p>pages {{page_obj}}</p>
+    <p>Question {{obj}}</p>
     <hr>
   {% for q in  page_obj %}
   
@@ -238,16 +246,17 @@ function checkSecond(sec) {
 <h6 style="text-align: right;">[marks {{q.marks}}]</h6>
 {% endif %}
 </div>
+
 {% if q.option1 %}
   <div  class="card-header shadow-lg mb-1 bg-white rounded">
-  <input   type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1">
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1" onkeyup='saveValue(this);'>
  <label for="option1"> {{q.option1}}</label><br>
 </div>
 {% endif %}
 
   {% if q.option2 %}
   <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input   type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2">
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2" onkeyup='saveValue(this);'>
   <label for="option2">{{q.option2}}</label><br>
 
 </div>
@@ -255,14 +264,14 @@ function checkSecond(sec) {
 
 {% if q.option3 %}
 <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option3}}"  value="Option3">
+  <input  type="radio" name="{{forloop.counter}}" id="{{q.option3}}"  value="Option3" onkeyup='saveValue(this);'>
   <label for="option3">{{q.option3}}</label><br> 
 </div>
 {% endif %}
 
 {% if q.option4 %}
 <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option4}}"  value="Option4">
+  <input  type="radio" name="{{forloop.counter}}" id="{{q.option4}}"  value="Option4" onkeyup='saveValue(this);'>
   <label  for="option4">{{q.option4}}</label><br>
 </div>
 {% endif %}
@@ -272,14 +281,26 @@ function checkSecond(sec) {
   {% endfor %}
 
   <input  class="btn btn-primary" type="submit" value="Next Subject">
-   
+  {% bootstrap_button "Save" button_type="button" button_class="btn-primary" %}
+  {% bootstrap_button button_type="reset" content="Cancel" %}
 </form>
 </div>
 <br>
+<script type="text/javascript">
+  document.getElementById("{{q.option1}}").value = getSavedValue("{{q.option1}}");    // set the value to this input
+  document.getElementById("{{q.option2}}").value = getSavedValue("{{q.option2}}");   // set the value to this input
+  document.getElementById("{{q.option3}}").value = getSavedValue("{{q.option3}}");    // set the value to this input
+  document.getElementById("{{q.option4}}").value = getSavedValue("{{q.option4}}");   // set the value to this input
+  /* Here you can add more inputs to set value. if it's saved */
+
+  //Save the value function - save it to localStorage as (ID, VALUE)
+ 
+
+</script>
+<!-- testing save input -->
 
 <script> 
   function saveAns(){  
-
       var ele = document.getElementsByTagName('input'); 
       for(i = 0; i < ele.length; i++) { 
           if(ele[i].type="radio") { 
@@ -297,6 +318,7 @@ d.setTime(d.getTime() + (exdays*24*60*60*1000));
 var expires = "expires="+ d.toUTCString();
 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
 </script>
 
 
@@ -308,15 +330,15 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
   <ul class="pagination  pagination-sm flex-wrap justify-content-center">
     {% if page_obj.has_previous %}
-      <li class=" page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+      <li class=" page-item"><a class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
-    {% for i in page_obj.paginator.page_range %}
-      {% if page_obj.number == i %}
+    {% for i in obj.paginator.page_range %}
+      {% if obj.number == i %}
         <li class="page-item active" aria-current="page"><span><a class="page-link" href="">{{ i }}</a></span></li>
       {% else %}
-        <li class="page-item"><a href="javascript:window.top.location.reload(true)"  class="continue page-link" href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item"><a class="continue page-link" href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
 
@@ -327,7 +349,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     {% endif %}
   </ul>
 </nav>
-</div>
+</div> 
 {% endif %}
 
 </div>
@@ -386,6 +408,14 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
       return r 
     }
   </script> -->
+
+ <!-- Option 1: Bootstrap Bundle with Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+ <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
 <!-- 
@@ -411,5 +441,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 </script>  -->
-
+{% block js2 %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+{% endblock %}
 <br><br><br><br><br><br>

@@ -1,3 +1,4 @@
+from cgi import print_arguments
 from multiprocessing import context
 from django import views
 from django.shortcuts import render, HttpResponse
@@ -168,8 +169,10 @@ def take_exams_view(request):
     course = QMODEL.Course.objects.filter(user = request.user)
     c = QMODEL.Course.objects.all()
     results =  Result.objects.all().order_by('-date')[:4]
+    
     for r in results:
         total_scores = total_scores + r.marks
+        
         
     print(total_scores)
        
@@ -188,21 +191,46 @@ def start_exams_view(request, pk):
     min = Timer.objects.get(id  =1)
     # questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')
     # questions_m = QMODEL.Question.objects.filter(course__course_name = 'Mathematics').order_by('?')
-    print(min)
+    # print(min)
     
-    questions = QMODEL.Question.objects.all().filter(course = course)[0:50]
-
-    q_count = QMODEL.Question.objects.all().filter(course = course).count()  
-    paginator = Paginator(questions, 2) # Show 25 contacts per page.
+    q_count = QMODEL.Question.objects.all().filter(course = course).count()
+    questions = QMODEL.Question.objects.all().filter(course = course)
+    paginator = Paginator(questions, 1) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
+    # def question_test():
+    #     questions = QMODEL.Question.objects.all().filter(course = course)
+    #     for question in questions:
+    #         print('course name',question.course.course_name)
+    #         courses_name = question.course.course_name
+    #         t=[]
+    #         for m in QMODEL.Question.objects.filter(course__course_name = 'Mathematics'):
+    #             tt = m.course.course_name   
+    #             t.append(tt)
+    #             if courses_name in t:
+                   
+    #                 return questions[:1]
+    #             else:   
+    #                 return questions[:2]
+
+    #         for m in QMODEL.Question.objects.filter(course__course_name = 'English'):
+    #             tt = m.course.course_name
+    #             t.append(tt)
+    #             if courses_name in t:
+                   
+    #                 return questions[:1]
+    #             else:   
+    #                 return questions[:2]
+            
     context = {
         'course':course,
-        'questions':questions,
+        # 'questions':questions,
         'q_count':q_count,
         'page_obj':page_obj,
-        'min':min
+        'obj':page_obj,
+        'min':min,
+        # 'question_test':question_test()
     }
     if request.method == 'POST':
         pass
