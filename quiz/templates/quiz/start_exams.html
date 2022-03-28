@@ -332,7 +332,8 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
 
 <!-- pagination codes star -->
-
+<div hx-boost="true">
+	
 {% if page_obj.has_other_pages %}
 <div class="container" id = ''>
 <nav class="d-flex" aria-label="Page navigation example">
@@ -359,6 +360,8 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   </ul>
 </nav>
 </div>
+</div>
+	
 {% endif %}
 
 </div>
