@@ -14,6 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>start exams view</title>
     <!-- ajex -->
+	
+  <script src="https://unpkg.com/htmx.org@1.7.0"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -331,7 +333,8 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
 
 <!-- pagination codes star -->
-
+<div hx-boost="true">
+	
 {% if page_obj.has_other_pages %}
 <div class="container" id = ''>
 <nav class="d-flex" aria-label="Page navigation example">
@@ -357,7 +360,13 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     {% endif %}
   </ul>
 </nav>
+<<<<<<< HEAD
 </div> 
+=======
+</div>
+</div>
+	
+>>>>>>> 75f39f85a617aa0f91ff7d81c8eabdb1960cddcd
 {% endif %}
 
 </div>
