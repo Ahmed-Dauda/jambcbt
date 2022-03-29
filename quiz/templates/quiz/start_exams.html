@@ -63,27 +63,37 @@
 }
 
 </style>
-      
+ 
+<style type="text/css">
+  /* https://jsbin.com/zequb/7/edit */
+  input[type=radio]{
+    /* hide original inputs */
+    /* visibility: hidden; */
+    position: absolute;
+  }
+  input[type=radio] + label{
+    cursor:pointer;
+  }
+  input[type=radio] + label:before{
+    width:16px;
+    height:16px;
+    content: " ";
+    display:inline-block;
+    border:1px solid #ccc;
+    border-radius:50%; 
+    box-shadow: inset 0 -3px 6px #e4e4e4;
+    transition: 0.3s;
+  }
+  
+  /* CHECKED */
+  input[type=radio]:checked + label:before{
+    box-shadow: inset 0 0 0 5px #2196F3;
+  }
+  </style>     
 </head>
 <body>
  
-<script>
-  $(function(){
-    // don't cache ajax or content won't be fresh
-    $.ajaxSetup ({
-        cache: false
-    });
-    var ajax_load = "<img src='http://automobiles.honda.com/images/current-offers/small-loading.gif' alt='loading...' />";
 
-    // load() functions
-    var loadUrl = "http://fiddle.jshell.net/deborah/pkmvD/show/";
-    $("#loadbasic").click(function(){
-        $("#result").html(ajax_load).load(loadUrl);
-    });
-
-// end  
-});
-</script>
   <!-- quiz timer  -->
   <div class='float-right sticky-top'>
     <div class="row justify-content-left">
@@ -249,29 +259,31 @@ function checkSecond(sec) {
 
 {% if q.option1 %}
   <div  class="card-header shadow-lg mb-1 bg-white rounded">
-  <input   type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1" onkeyup='saveValue(this);'>
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option1}}"  value="Option1" class="in" onchange="this.form.submt()">
  <label for="option1"> {{q.option1}}</label><br>
 </div>
 {% endif %}
 
   {% if q.option2 %}
   <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input   type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2" onkeyup='saveValue(this);'>
+  <input   type="radio" name="{{forloop.counter}}" id="{{q.option2}}"  value="Option2" class="in" onchange="this.form.submt()">
   <label for="option2">{{q.option2}}</label><br>
 
+ 
+	  
 </div>
 {% endif %}
 
 {% if q.option3 %}
 <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option3}}"  value="Option3" onkeyup='saveValue(this);'>
+  <input  type="radio" name="{{forloop.counter}}" id="{{q.option3}}"  value="Option3" class="in" onchange="this.form.submi()">
   <label for="option3">{{q.option3}}</label><br> 
 </div>
 {% endif %}
 
 {% if q.option4 %}
 <div class="card-header shadow-lg mb-1 bg-white rounded">
-  <input  type="radio" name="{{forloop.counter}}" id="{{q.option4}}"  value="Option4" onkeyup='saveValue(this);'>
+  <input  type="radio" name="{{forloop.counter}}" id="{{q.option4}}"  value="Option4" class="in" onchange="this.form.submt()">
   <label  for="option4">{{q.option4}}</label><br>
 </div>
 {% endif %}
@@ -280,25 +292,21 @@ function checkSecond(sec) {
 <h1 class="card text-center text-danger">No Exam Available Yet. CHECK LATER</h1>
   {% endfor %}
 
-  <input  class="btn btn-primary" type="submit" value="Next Subject">
-  {% bootstrap_button "Save" button_type="button" button_class="btn-primary" %}
-  {% bootstrap_button button_type="reset" content="Cancel" %}
+  <input   class="btn btn-primary" type="submit" value="Next Subject">
+
+</div>
+
 </form>
 </div>
 <br>
-<script type="text/javascript">
-  document.getElementById("{{q.option1}}").value = getSavedValue("{{q.option1}}");    // set the value to this input
-  document.getElementById("{{q.option2}}").value = getSavedValue("{{q.option2}}");   // set the value to this input
-  document.getElementById("{{q.option3}}").value = getSavedValue("{{q.option3}}");    // set the value to this input
-  document.getElementById("{{q.option4}}").value = getSavedValue("{{q.option4}}");   // set the value to this input
-  /* Here you can add more inputs to set value. if it's saved */
 
-  //Save the value function - save it to localStorage as (ID, VALUE)
- 
-
-</script>
 <!-- testing save input -->
 
+<!-- <script>
+  $('input[type=radio]').on(function(){
+    $('.in').submit()
+  })
+</script> -->
 <script> 
   function saveAns(){  
       var ele = document.getElementsByTagName('input'); 
@@ -306,7 +314,7 @@ function checkSecond(sec) {
           if(ele[i].type="radio") { 
               if(ele[i].checked){        
                 setCookie(ele[i].name,ele[i].value,3)
-              }
+              }console.log(ele[i].checked)
           } 
       } 
         
@@ -330,7 +338,7 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
   <ul class="pagination  pagination-sm flex-wrap justify-content-center">
     {% if page_obj.has_previous %}
-      <li class=" page-item"><a class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
+      <li class=" page-item"><a  class="continue page-link badge bg-primary rounded-pill" href="?page={{ page_obj.previous_page_number }}">previous &laquo;</a></li>
     {% else %}
       <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -412,8 +420,9 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
  <!-- Option 1: Bootstrap Bundle with Popper -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
- <!-- Option 2: Separate Popper and Bootstrap JS -->
+ <!-- scroll bar in django -->
 
+ <!-- Option 2: Separate Popper and Bootstrap JS -->
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
@@ -441,7 +450,5 @@ document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 </script>  -->
-{% block js2 %}
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-{% endblock %}
+
 <br><br><br><br><br><br>

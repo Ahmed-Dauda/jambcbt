@@ -189,6 +189,7 @@ def start_exams_view(request, pk):
 
     course = QMODEL.Course.objects.get(id = pk)
     min = Timer.objects.get(id  =1)
+    
     # questions = QMODEL.Question.objects.all().filter(course = course).order_by('?')
     # questions_m = QMODEL.Question.objects.filter(course__course_name = 'Mathematics').order_by('?')
     # print(min)
@@ -242,6 +243,7 @@ def start_exams_view(request, pk):
 def calculate_marks_view(request):
     if request.COOKIES.get('course_id') is not None:
         course_id = request.COOKIES.get('course_id')
+        
         course=QMODEL.Course.objects.get(id=course_id)
         
         total_marks=0
@@ -252,6 +254,7 @@ def calculate_marks_view(request):
             actual_answer = questions[i].answer
             if selected_ans == actual_answer:
                 total_marks = total_marks + questions[i].marks
+        print('test',total_marks)
         student = Student.objects.get(user_id=request.user.id)
         result = QMODEL.Result()
         result.marks=total_marks
